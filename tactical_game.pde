@@ -26,7 +26,6 @@ void setup() {
 }
 
 void draw() {
-  test();
   global_timer ++;
   
   background(50, 50, 75);
@@ -44,17 +43,22 @@ void draw() {
 
   for (int n = 0; n < units.size(); n ++)
     units.get(n).update();
+  
+  if (active_unit != null) {
+      fill(255, 255, 255, 0);
+      stroke(255, 255, 255, 200 + sin(global_timer / 10) * 55);
+      strokeWeight(5);
+      rect(active_unit.position.x * CELL_SIZE, active_unit.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    }
+   
+   PVector mouse_pos = pixel_to_grid(new PVector(mouseX, mouseY));
+   fill(255, 255, 255, 50 + sin(global_timer / 10) * 25);
+   noStroke();
+   rect(mouse_pos.x * CELL_SIZE, mouse_pos.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 
   for (int n = 0; n < list_floating_text.size(); n ++)
     list_floating_text.get(n).update();
 
-}
-
-void test() {
-  //println("HELLO");
-  if(keyPressed){
-    print(key);
-  }
 }
 
 void sort_units() {
@@ -83,12 +87,6 @@ void sort_units() {
       break;
   }
   units = unsorted_units;
-}
-
-PVector get_random_pos() {
-  int x = floor(random(width / CELL_SIZE));
-  int y = floor(random(height / CELL_SIZE));
-  return new PVector(x, y);
 }
 
 void next_unit() {

@@ -58,13 +58,6 @@ class unit {
 
     fill(255);
     text(move_points, position.x * CELL_SIZE + 10, position.y * CELL_SIZE + 10);
-
-    if (active_unit == this) {
-      fill(255, 255, 255, 0);
-      stroke(255, 255, 255, 200 + sin(global_timer / 10) * 55);
-      strokeWeight(5);
-      rect(position.x * CELL_SIZE, position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-    }
   }
 
   void move(PVector new_position) {
@@ -137,6 +130,12 @@ void control_input(unit unit) {
       next_unit();
       break;
     }
+  
+  if (mousePressed) {
+    direction = (pixel_to_grid(new PVector(mouseX, mouseY)).sub(unit.position)).normalize();
+    direction = new PVector(round(direction.x), round(direction.y));
+  }
+    
   
   if (direction.mag() == 0)
     return;
