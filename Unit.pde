@@ -9,7 +9,8 @@ class unit {
   int delay = 0;
 
   // Stats
-  int health = 10;
+  int max_health = 12;
+  int health = max_health;
   int attack = 5;
   int speed = 5;
   float initiative = 5 * random(5);
@@ -44,6 +45,8 @@ class unit {
   }
 
   void _draw() {
+
+    // Draw unit
     switch(fraction) {
     case "allies":
       fill(155, 255, 55);
@@ -52,12 +55,21 @@ class unit {
       fill(255, 55, 55);
       break;
     }
-    stroke(255);
+    stroke(0);
     strokeWeight(1);
-    rect(position.x * CELL_SIZE, position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    rect(position.x * CELL_SIZE, position.y * CELL_SIZE - CELL_SIZE / 4, CELL_SIZE, CELL_SIZE + CELL_SIZE / 4);
 
+    // Draw health bar
+    if (health < max_health) {
+      fill(0);
+      rect(position.x * CELL_SIZE, position.y * CELL_SIZE + CELL_SIZE - 8, CELL_SIZE, 8);
+      fill(0, 255, 0);
+      float healthbar_length_mod = float(health) / max_health;
+      rect(position.x * CELL_SIZE, position.y * CELL_SIZE + CELL_SIZE - 8, CELL_SIZE * healthbar_length_mod, 8);
+    }
     fill(255);
-    text(move_points, position.x * CELL_SIZE + 10, position.y * CELL_SIZE + 10);
+    textSize(32);
+    text(move_points, position.x * CELL_SIZE + 14, position.y * CELL_SIZE + 32);
   }
 
   void move(PVector new_position) {
@@ -130,16 +142,16 @@ void control_input(unit unit) {
       next_unit();
       break;
     }
-  
+
   if (mousePressed) {
     direction = (pixel_to_grid(new PVector(mouseX, mouseY)).sub(unit.position)).normalize();
     direction = new PVector(round(direction.x), round(direction.y));
   }
-    
-  
+
+
   if (direction.mag() == 0)
     return;
-  
+
   PVector pot_position = unit.position.copy().add(direction);
   unit collider = check_collision(pot_position);
   if (collider == null)
