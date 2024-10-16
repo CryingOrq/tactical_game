@@ -1,23 +1,37 @@
 class unit {
 
   // Data
-  int id;
+  String title = "Untitled";
+  int level = 1;
   String fraction;
+  
   PVector position;
   int move_points;
-  String title = "Untitled";
+
   int delay = 0;
 
-  // Stats
-  int max_health = 12;
-  int health = max_health;
-  int attack = 5;
-  int speed = 5;
-  float initiative = 5 * random(5);
+  //
+  int strength = 5;
+  int dexterity = 5;
+  int intellect = 5;
+  int toughness = 5;
+  
+  int attack_;
+  
 
-  unit(PVector position, String fraction) {
-    this.position = position;
-    this.fraction = fraction;
+  // Stats
+  int max_health = 10 + floor(random(5));
+  int health = max_health;
+  int attack = 5 + floor(random(5));
+  int speed = 5 + floor(random(5));
+  float initiative = 5 + floor(random(5));
+
+  unit(String title, int strength, int dexterity, int intellect, int toughness) {
+    this.title = title;
+    this.strength = strength;
+    this.dexterity = dexterity;
+    this.intellect = intellect;
+    this.toughness = toughness;
   }
 
   // Main
@@ -57,14 +71,15 @@ class unit {
     }
     stroke(0);
     strokeWeight(1);
-    rect(position.x * CELL_SIZE, position.y * CELL_SIZE - CELL_SIZE / 4, CELL_SIZE, CELL_SIZE + CELL_SIZE / 4);
+    rect(position.x * CELL_SIZE, position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE
+      );
 
     // Draw health bar
     if (health < max_health) {
       fill(0);
       rect(position.x * CELL_SIZE, position.y * CELL_SIZE + CELL_SIZE - 8, CELL_SIZE, 8);
-      fill(0, 255, 0);
       float healthbar_length_mod = float(health) / max_health;
+      fill(255 - 255 * healthbar_length_mod, 255 * healthbar_length_mod, 0);
       rect(position.x * CELL_SIZE, position.y * CELL_SIZE + CELL_SIZE - 8, CELL_SIZE * healthbar_length_mod, 8);
     }
     fill(255);

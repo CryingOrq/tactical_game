@@ -2,46 +2,49 @@ int CELL_SIZE = 40;
 
 ArrayList<unit> units = new ArrayList<unit>();
 ArrayList<unit> allies = new ArrayList<unit>();
+ArrayList<unit> party = new ArrayList<unit>();
 ArrayList<unit> enemies = new ArrayList<unit>();
 
 ArrayList<floating_text> list_floating_text = new ArrayList<floating_text>();
+
+
 
 unit active_unit = null;
 //int move_delay = 0;
 int global_timer = 0;
 int info_delay = 15;
+battlefield battlefield;
+button b1;
 
 void setup() {
-  size(800, 600);
-
+  size(1920, 1080, P2D);
+  fullScreen();
+  method("test");
   int ally_amount = 5;
   int enemy_amount = 5;
 
-  for (int n = 0; n < 5; n ++)
+  for (int n = 0; n < 4; n ++)
     allies.add(new unit(get_random_pos(), "allies"));
   for (int n = 0; n < 5; n ++)
     enemies.add(new unit(get_random_pos(), "enemies"));
   sort_units();
   next_unit();
+  battlefield = new battlefield(new PVector(16, 12));
+  
+  b1 = new button(new PVector(width / 2, height / 2), new PVector(200, 100), 100,"TEST BUTTON", "btn");
 }
+
+void test() {
+  println("TEST");
+}
+
 
 void draw() {
   global_timer ++;
 
-  background(50, 50, 75);
+  background(0);
 
-  // Draw grid
-  int x = CELL_SIZE, y = CELL_SIZE;
-  stroke(100);
-  strokeWeight(1);
-  while (x < width) {
-    line(x, 0, x, height);
-    x += CELL_SIZE;
-  }
-  while (y < height) {
-    line(0, y, width, y);
-    y += CELL_SIZE;
-  }
+  battlefield.update();
 
   // Update units
   for (int n = 0; n < units.size(); n ++)
@@ -90,23 +93,24 @@ void draw() {
       rect(position.x + 4, position.y + 4, info_size.x - 8, info_size.y - 8);
       position.x += 16;
       position.y += 32;
-      
+
       // title
       fill(0);
       textSize(24);
+      textAlign(LEFT, BOTTOM);
       text(unit.title, position.x + 2, position.y + 1);
       fill(255);
       text(unit.title, position.x, position.y);
       position.y += 8;
-      
+
       // hp bar
       fill(0);
       rect(position.x, position.y, 80 + 2, 8 + 2);
-      fill(0, 255, 0);
       float healthbar_length_mod = float(unit.health) / unit.max_health;
+      fill(255 - 255 * healthbar_length_mod, 255 * healthbar_length_mod, 0);
       rect(position.x, position.y, 80 * healthbar_length_mod, 8);
       position.y += 32;
-      
+
       // stats
       textSize(16);
       fill(0);
@@ -114,13 +118,13 @@ void draw() {
       fill(255);
       text("Attack " + unit.attack, position.x, position.y);
       position.y += 24;
-      
+
       fill(0);
       text("Speed " + unit.speed, position.x + 2, position.y + 1);
       fill(255);
       text("Speed " + unit.speed, position.x, position.y);
       position.y += 24;
-      
+
       fill(0);
       text("Initiative " + int(unit.initiative), position.x + 2, position.y + 1);
       fill(255);
@@ -132,6 +136,8 @@ void draw() {
   // Update floating text
   for (int n = 0; n < list_floating_text.size(); n ++)
     list_floating_text.get(n).update();
+    
+   b1.draw();
 }
 
 void sort_units() {
