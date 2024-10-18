@@ -2,36 +2,32 @@ class unit {
 
   // Data
   String title = "Untitled";
-  int level = 1;
   String fraction;
-  
+  int level = 1;
+
   PVector position;
   int move_points;
-
+  int init_roll;
   int delay = 0;
 
-  //
-  int strength = 5;
-  int dexterity = 5;
-  int intellect = 5;
-  int toughness = 5;
-  
-  int attack_;
-  
-
   // Stats
-  int max_health = 10 + floor(random(5));
-  int health = max_health;
-  int attack = 5 + floor(random(5));
-  int speed = 5 + floor(random(5));
-  float initiative = 5 + floor(random(5));
+  int attack = 5;
+  int health = 5;
+  int speed = 5;
+  int power = 5;
+  int init = 5;
 
-  unit(String title, int strength, int dexterity, int intellect, int toughness) {
+  int max_health = health;
+
+  unit(String title, String fraction, int level, int attack, int health, int speed, int power, int init) {
     this.title = title;
-    this.strength = strength;
-    this.dexterity = dexterity;
-    this.intellect = intellect;
-    this.toughness = toughness;
+    this.fraction = fraction;
+    this.level = level;
+    this.attack = attack;
+    this.health = health;
+    this.speed = speed;
+    this.power = power;
+    this.init = init;
   }
 
   // Main
@@ -43,7 +39,7 @@ class unit {
       else
         delay --;
 
-    _draw();
+    draw();
   }
 
   // // //
@@ -55,10 +51,14 @@ class unit {
     case "enemies":
       control_ai(this);
       break;
+    case "objects":
+      break;
+    case "walls":
+      break;
     }
   }
 
-  void _draw() {
+  void draw() {
 
     // Draw unit
     switch(fraction) {
@@ -98,7 +98,7 @@ class unit {
 
   void attack(unit target) {
     println("ATTACK!");
-    target.health -= attack;
+    target.health -= roll() + attack;
     move_points --;
     if (move_points <= 0)
       next_unit();
@@ -202,9 +202,18 @@ void control_ai(unit unit) {
     return;
 
   // Calc direction
+
+  float[] angles = {0, PI / 4, -PI / 4, PI / 2, -PI / 2, 0, PI / 4, -PI / 4, PI / 2, -PI / 2};
+  boolean attack_objects = false;
   PVector direction = (target.position.copy().sub(unit.position)).normalize();
-  direction = new PVector(round(direction.x), round(direction.y));
-  PVector pot_position = unit.position.copy().add(direction);
+
+  for (int i = 0; i < angles.length; i++) {
+    PVector modified_dir = direction.rotate(angles[i]);
+    PVector offset = new PVector(round(modified_dir.x), round(modified_dir.y));
+    PVector pot_position = unit.position.copy().add(direction);
+  }
+  //direction = new PVector(round(direction.x), round(direction.y));
+  //PVector pot_position = unit.position.copy().add(direction);
   unit collider = check_collision(pot_position);
   if (collider == null)
     unit.move(pot_position);

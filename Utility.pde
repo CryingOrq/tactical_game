@@ -15,3 +15,7 @@ PVector grid_to_pixel(PVector grid_pos) {
   float y = grid_pos.y * CELL_SIZE;
   return new PVector(x, y);
 }
+
+int roll() {
+  return floor(random(10)) + 1;
+}

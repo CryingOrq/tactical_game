@@ -1,29 +1,29 @@
 unit human() {
-  unit unit = new unit("Human", 5, 5, 5, 5);
+  unit unit = new unit("Human", "Enemies", 1, 5, 5, 5, 5, 5);
   
   return unit;
 }
 
 unit goblin() {
-  unit unit = new unit("Goblin", 5, 4, 3, 4);
+  unit unit = new unit("Goblin", "Enemies", 1, 5, 5, 5, 5, 5);
   
   return unit;
 }
 
 unit spider() {
-  unit unit = new unit("Spider", 4, 6, 2, 4);
+  unit unit = new unit("Spider", "Enemies", 1, 5, 5, 5, 5, 5);
   
   return unit;
 }
 
 unit skeleton() {
-  unit unit = new unit("Skeleton", 4, 2, 1, 4);
+  unit unit = new unit("Skeleton", "Enemies", 1, 5, 5, 5, 5, 5);
   
   return unit;
 }
 
 unit slime() {
-unit unit = new unit("Slime", 3, 3, 0, 6);
+unit unit = new unit("Slime", "Enemies", 1, 5, 5, 5, 5, 5);
   
   return unit;
 }
