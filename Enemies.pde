@@ -1,29 +1,32 @@
-unit human() {
-  unit unit = new unit("Human", "Enemies", 1, 5, 5, 5, 5, 5);
-  
-  return unit;
+// Stats for enemies
+// title, fraction, level, attack, health, speed, power, init
+
+entity human() {
+  entity entity = new entity("Human", "Enemies", 1, 5, 5, 5, 5, 5);
+
+  return entity;
 }
 
-unit goblin() {
-  unit unit = new unit("Goblin", "Enemies", 1, 5, 5, 5, 5, 5);
-  
-  return unit;
+entity goblin() {
+  entity entity = new entity("Goblin", "Enemies", 1, 5, 5, 5, 5, 5);
+
+  return entity;
 }
 
-unit spider() {
-  unit unit = new unit("Spider", "Enemies", 1, 5, 5, 5, 5, 5);
-  
-  return unit;
+entity spider() {
+  entity entity = new entity("Spider", "Enemies", 1, 5, 5, 5, 5, 5);
+
+  return entity;
 }
 
-unit skeleton() {
-  unit unit = new unit("Skeleton", "Enemies", 1, 5, 5, 5, 5, 5);
-  
-  return unit;
+entity skeleton() {
+  entity entity = new entity("Skeleton", "Enemies", 1, 5, 5, 5, 5, 5);
+
+  return entity;
 }
 
-unit slime() {
-unit unit = new unit("Slime", "Enemies", 1, 5, 5, 5, 5, 5);
-  
-  return unit;
+entity slime() {
+  entity entity = new entity("Slime", "Enemies", 1, 5, 5, 5, 5, 5);
+
+  return entity;
 }

@@ -1,3 +1,8 @@
+// VISUAL EFFECTS
+
+// Lists of effects
+ArrayList<floating_text> list_floating_text = new ArrayList<floating_text>();
+
 class floating_text {
   String text;
   PVector position;

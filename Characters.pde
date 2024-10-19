@@ -1,25 +1,26 @@
-// attack, health, speed, power, init
+// Stats for characters
+// title, fraction, level, attack, health, speed, power, init
 
-unit warrior() {
-  unit unit = new unit("Warrior", "Allies", 1, 8, 8, 4, 2, 6);
-  
-  return unit;
+entity warrior() {
+  entity entity = new entity("Warrior", "Party", 1, 8, 8, 4, 2, 6);
+
+  return entity;
 }
 
-unit mage() {
-  unit unit = new unit("Mage", "Allies", 1, 2, 4, 4, 10, 4);
-  
-  return unit;
+entity mage() {
+  entity entity = new entity("Mage", "Party", 1, 2, 4, 4, 10, 4);
+
+  return entity;
 }
 
-unit priest() {
-  unit unit = new unit("Priest", "Allies", 1, 4, 8, 5, 8, 6);
-  
-  return unit;
+entity priest() {
+  entity entity = new entity("Priest", "Party", 1, 4, 8, 5, 8, 6);
+
+  return entity;
 }
 
-unit rogue() {
-  unit unit = new unit("Rogue", "Allies", 1, 4, 4, 8, 2, 8);
-  
-  return unit;
+entity rogue() {
+  entity entity = new entity("Rogue", "Party", 1, 4, 4, 8, 2, 8);
+
+  return entity;
 }

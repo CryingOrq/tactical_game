@@ -1,3 +1,5 @@
+// Diff methods
+
 PVector get_random_pos() {
   int x = floor(random(width / CELL_SIZE));
   int y = floor(random(height / CELL_SIZE));
